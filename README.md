@@ -1,1 +1,1 @@
-Olá! Este é um projeto sobre uma loja fictìcia virtual feito por alunas dob 2ºano de Desenvolvimento de sistemas da ETECVAV 
+Olá! Este é um projeto sobre uma loja fictìcia virtual feito por alunas do 2ºano de Desenvolvimento de sistemas da ETECVAV 
