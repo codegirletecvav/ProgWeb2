@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     <title>Alterar Preço</title>
     <style>
     body {
-        font-family: Arial, sans-serif;
-        background: #ffeef4;
+        font-family: Anton;
+        background: #f9e5e4;
         margin: 0;
     }
 
@@ -55,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
         margin: 70px auto;
         background: #fff;
         padding: 30px;
-        border: 2px solid #f3a6c4;
+        border: 2px solid #d9423f;
         border-radius: 4px;
         box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
         text-align: center;
     }
 
     h2 {
-        color: #d94c7b;
+        color: #d9423f;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     p.mensagem {
         font-weight: bold;
         margin-bottom: 15px;
-        color: #d94c7b;
+        color: #d9423f;
     }
 
     label {
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     }
 
     input[type="submit"] {
-        background: #d94c7b;
+        background: #d9423f;
         color: #fff;
         border: none;
         cursor: pointer;
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     }
 
     input[type="submit"]:hover {
-        background: #b93b65;
+        background: #d9423f;
     }
 
     .links {
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     .links a {
         display: inline-block;
         margin: 0 15px;
-        color: #d94c7b;
+        color: #d9423f;
         text-decoration: none;
         font-weight: bold;
         border-bottom: 2px solid transparent;
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
     }
 
     .links a:hover {
-        border-bottom: 2px solid #d94c7b;
+        border-bottom: 2px solid #d9423f;
     }
     </style>
 </head>
@@ -158,3 +158,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
 </body>
 
 </html>
+
