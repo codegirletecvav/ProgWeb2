@@ -43,85 +43,137 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
 <head>
     <meta charset="UTF-8">
     <title>Alterar Preço</title>
-    <style>
-    body {
-        font-family: Anton;
-        background: #f9e5e4;
-        margin: 0;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
 
-    .container {
-        max-width: 500px;
-        margin: 70px auto;
-        background: #fff;
-        padding: 30px;
-        border: 2px solid #d9423f;
-        border-radius: 4px;
-        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
-        text-align: center;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    h2 {
-        color: #d9423f;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+html, body {
+  height: 100%;
+  background-color: #f9e5e4;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    p.mensagem {
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: #d9423f;
-    }
+/* Container centralizado */
+.container {
+  background-color: white;
+  padding: 2.5rem 3rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(217, 66, 63, 0.2);
+  width: 90vw;
+  min-width: 800px;
+  max-width: 1000px;
+}
 
-    label {
-        display: block;
-        margin-top: 15px;
-        font-weight: bold;
-        color: #333;
-        text-align: left;
-    }
+/* Título */
+h2 {
+  font-family: 'Anton', sans-serif;
+  color: #d9423f;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0 15px;
-        border: 1px solid #bbb;
-        border-radius: 3px;
-    }
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+}
 
-    input[type="submit"] {
-        background: #d9423f;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        padding: 12px;
-        border-radius: 3px;
-        transition: 0.3s;
-        width: 100%;
-    }
+label {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+}
 
-    input[type="submit"]:hover {
-        background: #d9423f;
-    }
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+}
 
-    .links {
-        margin-top: 20px;
-    }
+/* Botão de envio */
+input[type="submit"] {
+  font-family: 'Anton', sans-serif;
+  background-color: #d9423f;
+  color: #f9e5e4;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 2rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-    .links a {
-        display: inline-block;
-        margin: 0 15px;
-        color: #d9423f;
-        text-decoration: none;
-        font-weight: bold;
-        border-bottom: 2px solid transparent;
-        padding-bottom: 3px;
-    }
+input[type="submit"]:hover {
+  background-color: #b23431;
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
-    .links a:hover {
-        border-bottom: 2px solid #d9423f;
-    }
+/* Botões extras alinhados */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.button-link {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #d9423f;
+  color: #f9e5e4;
+  padding: 0.7rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-link:hover {
+  background-color: #b23431;
+  transform: scale(1.05);
+}
+
+/* Link textual */
+.text-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.text-link a {
+  color: #d9423f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.text-link a:hover {
+  color: #b23431;
+}
+
+/* Estilo de mensagem */
+p.mensagem {
+  font-w
+
     </style>
 </head>
 
@@ -158,4 +210,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
 </body>
 
 </html>
+
 
