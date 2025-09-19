@@ -229,7 +229,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 
   <main class="login-container" role="main" aria-label="Formulário de login Makeup Glam">
-    <h1>Makeup Glam</h1>
+    <h1>AURA</h1>
     <p class="subtitle">Entre para realçar sua beleza</p>
 
     <form method="post" action="" novalidate>
@@ -260,4 +260,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 </body>
 </html>
+
 
