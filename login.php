@@ -50,10 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - AURA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <title>Login
+  </title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet" />
   <style>
-    /* Reset básico */
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -62,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     body, html {
       height: 100%;
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #fcefee 0%, #f9d6d5 100%);
+      font-family: 'Open Sans, sans-serif';
+      background: linear-gradient(135deg, #f9e5e4 0%, #f9e5e4 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -97,22 +98,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Anton', sans-serif;
       color: #d9423f;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      z-index: 1;
-      position: relative;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
     }
 
-    p.subtitle {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 2rem;
-      font-weight: 500;
-      z-index: 1;
-      position: relative;
-    }
+   
 
     form {
       display: flex;
@@ -126,9 +118,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       text-align: left;
       font-weight: 600;
       color: #444;
-      font-size: 0.9rem;
+      font-size: rem;
       margin-bottom: 0.3rem;
       user-select: none;
+      font-family: 'Open Sans', sans-serif;
     }
 
     input[type="text"],
@@ -138,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       border-radius: 8px;
       font-size: 1rem;
       transition: border-color 0.3s ease;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Open Sans', sans-serif;
     }
 
     input[type="text"]:focus,
@@ -158,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.15s ease;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Open Sans', sans-serif;
       margin-top: 1rem;
     }
 
@@ -174,29 +167,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       font-size: 0.95rem;
       user-select: none;
     }
+.extra-links {
+  margin-top: 25px;
+  text-align: center;
+}
 
-    .extra-links {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      color: #d9423f;
-      font-weight: 600;
-      user-select: none;
-    }
+.extra-links a {
+  display: inline-block;
+  margin: 0 15px;
+  color: #d9423f;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 3px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  font-family: 'Open Sans', sans-serif;
+}
 
-    .extra-links a {
-      color: #d9423f;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+.extra-links a:hover {
+  color: #b23431;
+  border-bottom: 2px solid #b23431;
+}
 
-    .extra-links a:hover {
-      color: #b23431;
-      text-decoration: underline;
-    }
 
-    /* Ícone simples no input */
+
     .input-group {
       position: relative;
     }
@@ -218,7 +212,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       padding-left: 40px;
     }
 
-    /* Responsividade */
+     p.subtitle {
+      font-size: 1rem;
+      color:  #d9423f;
+      margin-bottom: 2rem;
+      font-weight: 500;
+      z-index: 1;
+      position: relative;
+      font-family: 'Anton', sans-serif;
+    }
+
     @media (max-width: 450px) {
       .login-container {
         padding: 2rem 1.5rem;
@@ -229,20 +232,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 
   <main class="login-container" role="main" aria-label="Formulário de login Makeup Glam">
-    <h1>AURA</h1>
-    <p class="subtitle">Entre para realçar sua beleza</p>
+    <h1>aura.</h1>
+      <p class="subtitle">beauty that feels like you</p>
+
+   
 
     <form method="post" action="" novalidate>
-      <label for="nickname">Nickname</label>
+      <label for="nickname">Nickname:</label>
       <div class="input-group">
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        <input type="text" id="nickname" name="nickname" class="with-icon" placeholder="Seu nickname" required autocomplete="username" />
+        <input type="text" id="nickname" name="nickname" class="with-icon" placeholder="" required autocomplete="username" />
       </div>
 
-      <label for="senha">Senha</label>
+      <label for="senha">Senha:</label>
       <div class="input-group">
-        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 17a2 2 0 0 0 2-2v-3a2 2 0 0 0-4 0v3a2 2 0 0 0 2 2zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2z"/></svg>
-        <input type="password" id="senha" name="senha" class="with-icon" placeholder="Sua senha" required autocomplete="current-password" />
+        <input type="password" id="senha" name="senha" class="with-icon" placeholder="" required autocomplete="current-password" />
       </div>
 
       <button type="submit" class="btn-login" aria-label="Entrar no sistema">Entrar</button>
@@ -251,11 +254,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <p class="error-msg" role="alert"><?= htmlspecialchars($erro) ?></p>
       <?php endif; ?>
     </form>
-
-    <nav class="extra-links" aria-label="Links adicionais">
-      <a href="/trabalho_final/">Voltar para a Home</a>
-      <a href="alterar_dados.php">Alterar dados</a>
-    </nav>
   </main>
 
 </body>
