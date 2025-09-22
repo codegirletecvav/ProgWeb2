@@ -164,7 +164,6 @@ if (isset($_POST['alterar'])) {
 </form>
 
 <div class="actions">
-  <a href="login.php" class="button-link">Voltar para a Home</a>
   <a href="dashboard.php" class="button-link">Voltar</a>
 </div>
 </div>
