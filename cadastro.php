@@ -1,344 +1,186 @@
-<?php
-session_start();
-$conn = new mysqli("localhost", "root", "", "empresaabd");
-
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
-
-
-function validaSenha($senha) {
-    return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/', $senha);
-}
-
-$consulta = $conn->query("SELECT COUNT(*) as total FROM funcionarios WHERE funcao = 'gerente'");
-$dado = $consulta->fetch_assoc();
-$temGerente = $dado['total'] > 0;
-
-
-if ($temGerente) {
-    if (!isset($_SESSION['idFunc']) || $_SESSION['funcao'] != 'gerente') {
-
-        die("Acesso negado. Apenas gerentes podem acessar essa página.");
-    }
-}
-
-if (isset($_POST['cadastrar'])) {
-    $nickname = $_POST['nickname'] ?? '';
-    $senha = $_POST['senha'] ?? '';
-    $nome = $_POST['nome'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $funcao = $_POST['funcao'] ?? '';
-
-    if (!validaSenha($senha)) {
-        die("Senha inválida! Deve ter entre 8 e 16 caracteres, letras maiúsculas, minúsculas e números.");
-    }
-
-  
-    $verifica = $conn->query("SELECT * FROM funcionarios WHERE nickname = '$nickname'");
-    if ($verifica->num_rows > 0) {
-        die("Nickname já cadastrado. Escolha outro.");
-    }
-
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-    $sql = "INSERT INTO funcionarios (nickname, senha, nome, email, funcao) 
-            VALUES ('$nickname', '$senhaHash', '$nome', '$email', '$funcao')";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "Cadastro realizado com sucesso!";
-    } else {
-        echo "Erro: " . mysqli_error($conn);
-    }
-}
-
-?>
-
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
-
-<style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body, html {
-    height: 100%;
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f9e5e4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .container {
-    background-color: white;
-    padding: 2.5rem 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(217, 66, 63, 0.2);
-    max-width: 500px;
-    width: 100%;
-  }
-
-  h2 {
-    font-family: 'Anton', sans-serif;
-    color: #d9423f;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  label, input, select {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  select {
-    padding: 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  input[type="submit"] {
-    font-family: 'Anton', sans-serif;
-    background-color: #d9423f;
-    color: #f9e5e4;
-    border: none;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    cursor: pointer;
-    border-radius: 6px;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-
-  input[type="submit"]:hover {
-    background-color: #b23431;
-    transform: scale(1.02);
-  }
-
-  a {
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    color: #d9423f;
-    font-weight: bold;
-    margin-top: 1rem;
-    transition: color 0.3s ease;
-  }
-
-  a:hover {
-    color: #b23431;
-  }
-
-  li {
-    list-style: none;
-    text-align: center;
-    margin-top: 1rem;
-  }
-
-  li a {
-    display: inline-block;
-    font-family: 'Anton', sans-serif;
-    background-color: #d9423f;
-    color: #f9e5e4;
-    padding: 0.7rem 2rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-
-  li a:hover {
-    background-color: #b23431;
-    transform: scale(1.05);
-  }
-</style>
-</head>
-<body>
-
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Usuário</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #f9e5e4 0%, #f9e5e4 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 15px; 
+  min-height: 100vh;
+}
 
-    html, body {
-      height: 100%;
-      background-color: #f9e5e4;
-      font-family: 'Open Sans', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.container {
+  max-width: 700px; 
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(217, 66, 63, 0.2);
+  text-align: center;
+}
 
-    .container {
-      background-color: white;
-      padding: 2.5rem 3rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(217, 66, 63, 0.2);
-      width: 90vw;             /* Ocupa 90% da largura da tela */
-      min-width: 800px;        /* Largura mínima garantida */
-      max-width: 1000px;       /* Máximo para telas grandes */
-    }
+
+   
 
     h2 {
       font-family: 'Anton', sans-serif;
       color: #d9423f;
-      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    p.subtitle {
+      font-size: 1rem;
+      color: #d9423f;
       margin-bottom: 2rem;
-      font-size: 2.2rem;
+      font-weight: 500;
+      z-index: 1;
+      position: relative;
+      font-family: 'Anton', sans-serif;
     }
 
     form {
       display: flex;
       flex-direction: column;
+      gap: 1.25rem;
+      z-index: 1;
+      position: relative;
     }
 
     label {
-      margin-top: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #444;
+      font-size: 0.95rem;
       margin-bottom: 0.3rem;
-      font-weight: bold;
+      user-select: none;
     }
 
-    input[type="text"],
-    input[type="password"],
-    input[type="email"],
-    select {
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: 'Open Sans', sans-serif;
+    input, select {
+      padding: 0.75rem 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
       font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: 'Open Sans', sans-serif;
       width: 100%;
+    }
+
+    input:focus, select:focus {
+      border-color: #d9423f;
+      outline: none;
+      box-shadow: 0 0 8px rgba(217, 66, 63, 0.3);
     }
 
     input[type="submit"] {
-      font-family: 'Anton', sans-serif;
       background-color: #d9423f;
-      color: #f9e5e4;
+      color: #fff;
       border: none;
-      padding: 0.75rem;
-      font-size: 1.1rem;
+      padding: 0.85rem 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 6px;
-      width: 100%;
-      margin-top: 2rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: background-color 0.3s ease, transform 0.15s ease;
+      font-family: 'Open Sans', sans-serif;
+      margin-top: 1rem;
     }
 
     input[type="submit"]:hover {
       background-color: #b23431;
-      transform: scale(1.02);
-    }
-
-    /* Ações alinhadas horizontalmente */
-    .actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .button-link {
-      display: inline-block;
-      font-family: 'Open sans', sans-serif;
-      background-color: #d9423f;
-      color: #f9e5e4;
-      padding: 0.7rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .button-link:hover {
-      background-color: #b23431;
       transform: scale(1.05);
     }
 
-    .text-link {
-      text-align: center;
+  
+    .actions {
       margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
     }
 
-    .text-link a {
+    .actions a {
+      flex: 1;
+      text-align: center;
+      background-color: #f9e5e4;
       color: #d9423f;
-      text-decoration: none;
       font-weight: bold;
+      padding: 0.75rem 0;
+      border-radius: 6px;
+      text-decoration: none;
+      font-family: 'Open Sans', sans-serif;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    .text-link a:hover {
-      color: #b23431;
+    .actions a:hover {
+      background-color: #d9423f;
+      color: #fff;
+      transform: scale(1.05);
     }
 
-    @media (max-width: 850px) {
+    @media (max-width: 450px) {
       .container {
-        min-width: unset;
-        width: 95vw;
-        padding: 2rem;
+        padding: 2rem 1.5rem;
       }
 
       .actions {
         flex-direction: column;
-        align-items: center;
       }
 
-      .button-link {
+      .actions a {
         width: 100%;
-        text-align: center;
       }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Cadastro de Usuário</h2>
+    
 
-<div class="container">
-  <h2>Cadastro de Usuário</h2>
+    <form method="POST">
+      <label>Nickname:</label>
+      <input type="text" name="nickname" required>
 
-  <form method="POST">
-    <label>Nickname:</label>
-    <input type="text" name="nickname" required>
+      <label>Senha:</label>
+      <input type="password" name="senha" required>
 
-    <label>Senha:</label>
-    <input type="password" name="senha" required>
+      <label>Nome completo:</label>
+      <input type="text" name="nome" required>
 
-    <label>Nome completo:</label>
-    <input type="text" name="nome" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
+      <label>Função:</label>
+      <select name="funcao" required>
+        <option value="gerente">Gerente</option>
+        <option value="funcionario">Funcionário</option>
+        <option value="repositor">Repositor</option>
+      </select>
 
-    <label>Função:</label>
-    <select name="funcao" required>
-      <option value="gerente">Gerente</option>
-      <option value="funcionario">Funcionário</option>
-      <option value="repositor">Repositor</option>
-    </select>
+      <input type="submit" name="cadastrar" value="Cadastrar">
+    </form>
 
-    <input type="submit" name="cadastrar" value="Cadastrar">
-
-    <!-- Botões lado a lado -->
+  ''
     <div class="actions">
-      <a href="alterar_dados.php" class="button-link">Alterar dados</a>
-      <a href="dashboard.php" class="button-link">Voltar</a>
+      <a href="alterar_dados.php">Alterar dados</a>
+      <a href="dashboard.php">Voltar</a>
     </div>
-
-
+  </div>
 </body>
 </html>
+
