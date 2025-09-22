@@ -31,72 +31,155 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
+     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
     <title>Cadastrar Produto</title>
+  
     <style>
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #ffeef5;
-        margin: 0;
-    }
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    .container {
-        max-width: 420px;
-        margin: 60px auto;
-        background: #fff;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #f9e5e4 0%, #f9e5e4 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 15px;
+  min-height: 100vh;
+}
 
-    h2 {
-        color: #d63384;
-        margin-bottom: 20px;
-    }
+.container {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(217, 66, 63, 0.2);
+  text-align: center;
+}
 
-    label {
-        display: block;
-        margin-top: 10px;
-        font-weight: bold;
-        color: #555;
-        text-align: left;
-    }
 
-    input {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-    }
+h2 {
+  font-family: 'Anton', sans-serif;
+  color: #d9423f;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  position: relative;
+  z-index: 1;
+}
 
-    input[type="submit"] {
-        background: #d63384;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+p.subtitle {
+  font-family: 'Anton', sans-serif;
+  font-size: 1rem;
+  color: #d9423f;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
 
-    input[type="submit"]:hover {
-        background: #ad276a;
-    }
 
-    .links {
-        margin-top: 20px;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
 
-    .links a {
-        color: #d63384;
-        text-decoration: none;
-        font-weight: bold;
-    }
+label {
+  text-align: left;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+  user-select: none;
+}
 
-    .links a:hover {
-        text-decoration: underline;
-    }
-    </style>
+input,
+select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Open Sans', sans-serif;
+}
+
+input:focus,
+select:focus {
+  border-color: #d9423f;
+  outline: none;
+  box-shadow: 0 0 8px rgba(217, 66, 63, 0.3);
+}
+
+
+input[type="submit"] {
+  background-color: #d9423f;
+  color: #fff;
+  border: none;
+  padding: 0.85rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 1rem;
+}
+
+input[type="submit"]:hover {
+  background-color: #b23431;
+  transform: scale(1.05);
+}
+
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.actions a {
+  flex: 1;
+  text-align: center;
+  background-color: #f9e5e4;
+  color: #d9423f;
+  font-weight: bold;
+  padding: 0.75rem 0;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actions a:hover {
+  background-color: #d9423f;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 450px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions a {
+    width: 100%;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -113,11 +196,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input name="quantidade" type="number" required>
 
             <input type="submit" value="Cadastrar">
+            <div class="actions">
+      <a href="dashboard.php">Voltar</a>
         </form>
 
-        <div class="links">
-            <a href="dashboard.php">Voltar</a>
-        </div>
+        
     </div>
 </body>
 
