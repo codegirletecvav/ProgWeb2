@@ -27,94 +27,172 @@ $res = $conn->query("SELECT * FROM produtos");
 
 <head>
     <meta charset="UTF-8">
+     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
     <title>Registrar Entrada</title>
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #ffeaf4;
-        margin: 0;
-        padding: 0;
-    }
+   * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    .container {
-        max-width: 600px;
-        margin: 70px auto;
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        border: 2px solid #f5a5c2;
-    }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #ffeaf4 0%, #fff 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 15px;
+}
 
-    h2 {
-        text-align: center;
-        color: #d94c7b;
-        margin-bottom: 25px;
-    }
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 2.5rem 3rem;
+  margin: 70px auto;
+  border-radius: 15px;
+  border: 2px solid #d9423f;
+  box-shadow: 0 0 15px rgba(217, 66, 63, 0.2);
+  text-align: center;
 
-    .mensagem {
-        text-align: center;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #d94c7b;
-    }
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+h2 {
+  font-family: 'Anton', sans-serif;
+  color: #d9423f;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
 
-    .form-group {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
+.mensagem {
+  color: #d9423f;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
 
-    label {
-        flex: 1;
-        font-weight: bold;
-        color: #333;
-    }
 
-    select,
-    input[type="number"] {
-        flex: 2;
-        padding: 10px;
-        border: 1px solid #bbb;
-        border-radius: 5px;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
 
-    input[type="submit"] {
-        padding: 12px;
-        background: #d94c7b;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
+.form-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 
-    input[type="submit"]:hover {
-        background: #b63a65;
-    }
+label {
+  flex: 1;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.95rem;
+  user-select: none;
+  text-align: left;
+}
 
-    .links {
-        text-align: center;
-        margin-top: 20px;
-    }
+select,
+input[type="number"] {
+  flex: 2;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .links a {
-        color: #d94c7b;
-        text-decoration: none;
-        font-weight: bold;
-        margin: 0 10px;
-    }
+select:focus,
+input[type="number"]:focus {
+  border-color: #d9423f;
+  outline: none;
+  box-shadow: 0 0 8px rgba(217, 66, 63, 0.3);
+}
 
-    .links a:hover {
-        text-decoration: underline;
-    }
+
+input[type="submit"] {
+  background-color: #d9423f;
+  color: #fff;
+  border: none;
+  padding: 0.85rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 1rem;
+}
+
+input[type="submit"]:hover {
+  background-color: #d9423f;;
+  transform: scale(1.05);
+}
+
+
+.links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  background-color: #ffeaf4;
+  color: #d9423f;
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.links a:hover {
+  background-color: #d9423f;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  label {
+    text-align: left;
+    width: 100%;
+  }
+
+  select,
+  input[type="number"] {
+    width: 100%;
+  }
+
+  .links {
+    flex-direction: column;
+  }
+
+  .links a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
     </style>
 </head>
 
