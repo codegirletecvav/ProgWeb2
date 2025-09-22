@@ -93,9 +93,8 @@ if (!isset($_SESSION['idFunc'])) {
       <li><a href="alterarpreco.php">Alterar preço</a></li>
     <?php elseif ($_SESSION['funcao'] === 'repositor'): ?>
       <li><a href="entradaprod.php">Entrada de produto</a></li>
-    <?php elseif ($_SESSION['funcao'] === 'funcionário'): ?>
+    <?php endif ($_SESSION['funcao'] === 'funcionário'): ?>
       <li><a href="listarprod.php">Produtos</a></li>
-    <?php endif; ?>
 
     <li><a href="logout.php">Sair</a></li>
   </ul>
@@ -103,4 +102,5 @@ if (!isset($_SESSION['idFunc'])) {
 
 </body>
 </html>
+
 
