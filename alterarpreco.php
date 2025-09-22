@@ -2,213 +2,171 @@
 session_start();
 
 if (!isset($_SESSION['idFunc'])) {
-    header("Location: login.php");
+    header("Location: login.php");  
     exit;
 }
 
 $conn = new mysqli("localhost", "root", "", "empresaabd");
 
-if (!isset($_SESSION['funcao']) || $_SESSION['funcao'] !== 'gerente') {
-    echo "Acesso negado.";
-    exit;
+    function validaSenha($senha) {
+    return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/', $senha);
 }
 
-$mensagem = "";
-$p = null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['buscar'])) {
-    $id = (int)$_POST['id'];
-    $p = $conn->query("SELECT * FROM produtos WHERE id = $id")->fetch_assoc();
+if (isset($_POST['alterar'])) {
+    $novaSenha = $_POST['nova_senha'];
 
-    if (!$p) {
-        $mensagem = "Produto não encontrado.";
+    if (!validaSenha($novaSenha)) {
+        die("Senha inválida! Deve ter entre 8 e 16 caracteres, letras maiúsculas, minúsculas e números.");
     }
-}
+    
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['atualizar'])) {
-    $id = (int)$_POST['id'];
-    $preco = (float)$_POST['preco'];
-    $sql = "UPDATE produtos SET preco = $preco WHERE id = $id";
-    if ($conn->query($sql)) {
-        $mensagem = "Preço atualizado com sucesso.";
+
+    $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+    $id = $_SESSION['idFunc'];
+
+    $sql = "UPDATE funcionarios SET senha = '$senhaHash' WHERE idFunc = $id";
+
+    if (mysqli_query($conn, $sql)) {
+        echo "Senha alterada com sucesso!";
     } else {
-        $mensagem = "Erro ao atualizar: " . $conn->error;
+        echo "Erro: " . mysqli_error($conn);
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Alterar Preço</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html, body {
-  height: 100%;
-  background-color: #f9e5e4;
-  font-family: 'Open Sans', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  body, html {
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f9e5e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-/* Container centralizado */
-.container {
-  background-color: white;
-  padding: 2.5rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(217, 66, 63, 0.2);
-  width: 90vw;
-  min-width: 800px;
-  max-width: 1000px;
-}
+  .container {
+    background-color: white;
+    padding: 2.5rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(217, 66, 63, 0.2);
+    width: 90vw;
+    min-width: 500px;
+    max-width: 700px;
+  }
 
-/* Título */
-h2 {
-  font-family: 'Anton', sans-serif;
-  color: #d9423f;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.2rem;
-}
+  h2 {
+    font-family: 'Anton', sans-serif;
+    color: #d9423f;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-/* Formulário */
-form {
-  display: flex;
-  flex-direction: column;
-}
+  form {
+    display: flex;
+    flex-direction: column;
+  }
 
-label {
-  margin-top: 1rem;
-  margin-bottom: 0.3rem;
-  font-weight: bold;
-  color: #333;
-  text-align: left;
-}
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-select {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
-  width: 100%;
-}
+  input[type="password"] {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+  }
 
-/* Botão de envio */
-input[type="submit"] {
-  font-family: 'Anton', sans-serif;
-  background-color: #d9423f;
-  color: #f9e5e4;
-  border: none;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  width: 100%;
-  margin-top: 2rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+  input[type="submit"] {
+    font-family: 'Anton', sans-serif;
+    background-color: #d9423f;
+    color: #f9e5e4;
+    border: none;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
 
-input[type="submit"]:hover {
-  background-color: #b23431;
-  transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
+  input[type="submit"]:hover {
+    background-color: #b23431;
+    transform: scale(1.02);
+  }
 
-/* Botões extras alinhados */
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-}
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
 
-.button-link {
-  display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  background-color: #d9423f;
-  color: #f9e5e4;
-  padding: 0.7rem 2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+  .button-link {
+    display: inline-block;
+    font-family: 'Open sans', sans-serif;
+    background-color: #d9423f;
+    color: #f9e5e4;
+    padding: 0.7rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
 
-.button-link:hover {
-  background-color: #b23431;
-  transform: scale(1.05);
-}
+  .button-link:hover {
+    background-color: #b23431;
+    transform: scale(1.05);
+  }
 
-/* Link textual */
-.text-link {
-  text-align: center;
-  margin-top: 1.5rem;
-}
+  @media (max-width: 600px) {
+    .container {
+      min-width: unset;
+      width: 95vw;
+      padding: 2rem;
+    }
 
-.text-link a {
-  color: #d9423f;
-  text-decoration: none;
-  font-weight: bold;
-}
+    .actions {
+      flex-direction: column;
+      align-items: center;
+    }
 
-.text-link a:hover {
-  color: #b23431;
-}
-
-/* Estilo de mensagem */
-p.mensagem {
-  font-w
-
-    </style>
+    .button-link {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <h2>Alterar Preço do Produto</h2>
 
-        <?php if (!empty($mensagem)): ?>
-        <p class="mensagem"><?= htmlspecialchars($mensagem) ?></p>
-        <?php endif; ?>
+<div class="container">
+<h2>Alterar Senha</h2>
 
-        <form method="post">
-            <label for="id">Digite o ID do produto:</label>
-            <input name="id" type="number" id="id" required>
-            <input type="submit" name="buscar" value="Buscar">
-        </form>
+<form method="POST">
+  <label>Nova senha:</label>
+  <input type="password" name="nova_senha" required>
 
-        <?php if ($p): ?>
-        <form method="post">
-            <p><strong>Produto:</strong> <?= htmlspecialchars($p['nome']) ?></p>
-            <label for="preco">Novo preço:</label>
-            <input name="preco" id="preco" type="number" step="0.01" value="<?= htmlspecialchars($p['preco']) ?>"
-                required>
-            <input type="hidden" name="id" value="<?= $p['id'] ?>">
-            <input type="submit" name="atualizar" value="Atualizar">
-        </form>
-        <?php endif; ?>
+  <input type="submit" name="alterar" value="Alterar Senha">
+</form>
 
-        <div class="links">
-            <a href="listarprod.php">Produtos</a>
-            <a href="dashboard.php">Voltar</a>
-        </div>
-    </div>
+<div class="actions">
+  <a href="dashboard.php" class="button-link">Voltar</a>
+</div>
+</div>
+
 </body>
-
 </html>
-
-
